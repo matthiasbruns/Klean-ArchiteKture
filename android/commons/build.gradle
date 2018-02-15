@@ -2,15 +2,13 @@ apply plugin: 'java-library'
 apply plugin: 'kotlin'
 
 dependencies {
-    implementation project(':commons')
-    implementation project(':data')
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
-    implementation "com.squareup.moshi:moshi-kotlin:1.5.0"
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    api 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    api 'io.reactivex.rxjava2:rxjava:2.1.9'
+
+    api "javax.inject:javax.inject:1"
+    api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
 
 sourceCompatibility = "1.7"
