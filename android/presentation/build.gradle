@@ -2,7 +2,7 @@ apply plugin: 'java-library'
 
 dependencies {
     implementation project(':commons')
-
+    implementation project(':domain')
 }
 
 sourceCompatibility = "1.7"
