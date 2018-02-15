@@ -1,9 +1,7 @@
 apply plugin: 'java-library'
+apply plugin: 'kotlin'
 
 dependencies {
     implementation project(':commons')
     implementation project(':domain')
 }
-
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"

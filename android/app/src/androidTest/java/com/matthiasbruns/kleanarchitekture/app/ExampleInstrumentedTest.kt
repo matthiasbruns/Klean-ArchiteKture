@@ -1,4 +1,4 @@
-package com.matthiasbruns.kleanarchitekture
+package com.matthiasbruns.kleanarchitekture.app
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

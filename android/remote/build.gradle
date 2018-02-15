@@ -12,29 +12,3 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
 }
-
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-repositories {
-    mavenCentral()
-}
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.6"
-    }
-}
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "1.6"
-    }
-}

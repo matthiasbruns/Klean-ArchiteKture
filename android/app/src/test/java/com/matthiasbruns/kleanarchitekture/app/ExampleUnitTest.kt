@@ -1,4 +1,4 @@
-package com.matthiasbruns.kleanarchitekture
+package com.matthiasbruns.kleanarchitekture.app
 
 import org.junit.Test
 

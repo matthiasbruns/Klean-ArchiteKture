@@ -10,29 +10,3 @@ dependencies {
     api "javax.inject:javax.inject:1"
     api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
-
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-repositories {
-    mavenCentral()
-}
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.6"
-    }
-}
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "1.6"
-    }
-}
