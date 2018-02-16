@@ -4,9 +4,12 @@ import com.matthiasbruns.kleanarchitekture.domain.NoArgUseCase
 import com.matthiasbruns.kleanarchitekture.domain.post.PostRepository
 import com.matthiasbruns.kleanarchitekture.domain.post.model.Post
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class FetchPosts @Inject constructor(private val repository: PostRepository) : NoArgUseCase<Single<List<Post>>> {
+class FetchPosts @Inject constructor(private val repository: PostRepository,
+                                     private val sortPortByIdDesc: SortPortByIdDesc) : NoArgUseCase<Single<List<Post>>> {
 
     override fun execute(): Single<List<Post>> = repository.fetch()
+            .flatMap { sortPortByIdDesc.execute(it) }
 }
