@@ -54,7 +54,7 @@ class PostListController : PresenterController<PostListPresenter>(), PostListVie
             postListRecyclerView.adapter = adapter
             postListRecyclerView.setHasFixedSize(true)
             postListRecyclerView.layoutManager = LinearLayoutManager(context)
-            postListRecyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICALgi))
+            postListRecyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
         return view
