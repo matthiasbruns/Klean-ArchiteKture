@@ -1,4 +1,4 @@
-package com.matthiasbruns.kleanarchitekture.base
+package com.matthiasbruns.kleanarchitekture.app.base
 
 import android.content.Context
 import android.os.Bundle

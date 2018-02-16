@@ -1,4 +1,4 @@
-package com.matthiasbruns.kleanarchitekture.base
+package com.matthiasbruns.kleanarchitekture.app.base
 
 import android.os.Bundle
 import android.support.v7.app.ActionBar

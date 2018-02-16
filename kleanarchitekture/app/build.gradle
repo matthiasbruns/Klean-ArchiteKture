@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion commonCompileSdkVersion
 
@@ -24,6 +26,15 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+    javacOptions {
+        // Increase the max count of errors from annotation processors.
+        // Default is 100.
+        option("-Xmaxerrs", 500)
+    }
+}
+
 dependencies {
     implementation project(':commons')
     implementation project(':presentation')
@@ -33,6 +44,9 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:design:$support_version"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
     implementation "com.bluelinelabs:conductor:$conductor_version"
 

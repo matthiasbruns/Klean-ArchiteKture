@@ -9,6 +9,7 @@ buildscript {
     ext.support_version = '27.0.2'
     ext.conductor_version = '2.1.4'
     ext.retrofit_version = '2.3.0'
+    ext.dagger_version = '2.14.1'
 
     repositories {
         google()
