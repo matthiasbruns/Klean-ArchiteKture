@@ -27,7 +27,6 @@ android {
 }
 
 kapt {
-    correctErrorTypes = true
     javacOptions {
         // Increase the max count of errors from annotation processors.
         // Default is 100.
@@ -39,6 +38,13 @@ dependencies {
     implementation project(':commons')
     implementation project(':presentation')
 
+    // Tailoring dependencies to build the dagger graph
+    implementation project(':domain')
+    implementation project(':data')
+    implementation project(':remote')
+    implementation project(':local')
+
+    // App dependencies
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
     implementation "com.android.support:appcompat-v7:$support_version"

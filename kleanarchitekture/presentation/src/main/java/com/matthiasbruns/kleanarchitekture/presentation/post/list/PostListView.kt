@@ -5,7 +5,7 @@ import io.reactivex.Observable
 
 interface PostListView {
 
-    val onPostClick: Observable<Int>
+    val onPostClick: Observable<PresentationPostItem>
 
-    fun render(it: List<PresentationPostItem>)
+    fun render(items: List<PresentationPostItem>)
 }

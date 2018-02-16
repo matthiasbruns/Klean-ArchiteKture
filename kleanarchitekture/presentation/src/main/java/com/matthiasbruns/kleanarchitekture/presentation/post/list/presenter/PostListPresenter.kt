@@ -7,7 +7,6 @@ import com.matthiasbruns.kleanarchitekture.presentation.post.PostNavigator
 import com.matthiasbruns.kleanarchitekture.presentation.post.list.PostListView
 import com.matthiasbruns.kleanarchitekture.presentation.post.mapper.PresentationPostItemMapper
 import com.matthiasbruns.kleanarchitekture.presentation.post.model.PresentationPostItem
-import com.matthiasbruns.kleanarchitekture.presentation.rx.UiScheduler
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.subjects.PublishSubject
@@ -15,7 +14,7 @@ import io.reactivex.subjects.Subject
 import javax.inject.Inject
 
 class PostListPresenter @Inject constructor(private val view: PostListView,
-                                            @UiScheduler private val uiScheduler: Scheduler,
+                                            private val uiScheduler: Scheduler,
                                             private val interactor: PostInteractor,
                                             private val mapper: PresentationPostItemMapper,
                                             private val navigator: PostNavigator) : DisposablePresenter() {
@@ -45,7 +44,7 @@ class PostListPresenter @Inject constructor(private val view: PostListView,
         view.onPostClick
                 .throttleFirst(PresenterConfig.INPUT_DEBOUNCE_DURATION, PresenterConfig.INPUT_DEBOUNCE_TIME)
                 .observeOn(uiScheduler)
-                .subscribe { navigator.openPostDetail(it) }
+                .subscribe { navigator.openPostDetail(it.id) }
                 .disposeOnStop()
     }
 }
