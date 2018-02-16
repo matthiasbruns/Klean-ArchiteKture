@@ -8,4 +8,8 @@ interface PostListView {
     val onPostClick: Observable<PresentationPostItem>
 
     fun render(items: List<PresentationPostItem>)
+
+    fun showError()
+
+    fun hideError()
 }

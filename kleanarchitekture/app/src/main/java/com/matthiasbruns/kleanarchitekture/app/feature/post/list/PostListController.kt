@@ -1,9 +1,12 @@
 package com.matthiasbruns.kleanarchitekture.app.feature.post.list
 
 import android.content.Context
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.matthiasbruns.kleanarchitekture.app.KleanApp
 import com.matthiasbruns.kleanarchitekture.app.R
 import com.matthiasbruns.kleanarchitekture.app.base.controller.PresenterController
@@ -47,7 +50,12 @@ class PostListController : PresenterController<PostListPresenter>(), PostListVie
     override fun inflateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = inflater.inflate(R.layout.controller_post_list, container, false)
 
-        view.postListRecyclerView.adapter = adapter
+        with(view) {
+            postListRecyclerView.adapter = adapter
+            postListRecyclerView.setHasFixedSize(true)
+            postListRecyclerView.layoutManager = LinearLayoutManager(context)
+            postListRecyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICALgi))
+        }
 
         return view
     }
@@ -56,6 +64,17 @@ class PostListController : PresenterController<PostListPresenter>(), PostListVie
 
     override fun render(items: List<PresentationPostItem>) {
         adapter.items = items
+    }
+
+    override fun showError() {
+        activity?.let { context ->
+            Toast.makeText(context, "ERROR", Toast.LENGTH_LONG).show()
+        }
+
+    }
+
+    override fun hideError() {
+
     }
 
     //endregion
