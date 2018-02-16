@@ -13,5 +13,5 @@ class FetchLatestPosts @Inject constructor(private val repository: PostRepositor
      * @param param the amount of posts to be fetched
      */
     override fun execute(param: Int): Single<List<Post>> = repository.fetch(param)
-            .flatMap { sortPortByIdDesc.execute(it) }d
+            .flatMap { sortPortByIdDesc.execute(it) }
 }
