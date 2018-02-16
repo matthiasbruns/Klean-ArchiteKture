@@ -15,6 +15,8 @@ import com.matthiasbruns.kleanarchitekture.presentation.post.list.PostListView
 import com.matthiasbruns.kleanarchitekture.presentation.post.list.presenter.PostListPresenter
 import com.matthiasbruns.kleanarchitekture.presentation.post.model.PresentationPostItem
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.Subject
 import kotlinx.android.synthetic.main.controller_post_list.view.*
 import javax.inject.Inject
 
@@ -38,6 +40,8 @@ class PostListController : PresenterController<PostListPresenter>(), PostListVie
     override val onPostClick: Observable<PresentationPostItem>
         get() = adapter.onItemClick
 
+    override val onRequestRefresh: Subject<Any> by lazy { PublishSubject.create<Any>() }
+
     //endregion
 
     override fun injectDependencies(context: Context) {
@@ -55,6 +59,8 @@ class PostListController : PresenterController<PostListPresenter>(), PostListVie
             postListRecyclerView.setHasFixedSize(true)
             postListRecyclerView.layoutManager = LinearLayoutManager(context)
             postListRecyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+
+            postListRefreshLayout.setOnRefreshListener { onRequestRefresh.onNext(Any()) }
         }
 
         return view
@@ -75,6 +81,10 @@ class PostListController : PresenterController<PostListPresenter>(), PostListVie
 
     override fun hideError() {
 
+    }
+
+    override fun setLoading(show: Boolean) {
+        view?.postListRefreshLayout?.isRefreshing = show
     }
 
     //endregion

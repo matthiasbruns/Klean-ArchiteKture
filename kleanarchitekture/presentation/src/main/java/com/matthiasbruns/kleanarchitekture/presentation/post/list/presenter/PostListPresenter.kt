@@ -25,22 +25,25 @@ class PostListPresenter @Inject constructor(private val view: PostListView,
     private val reloadPostsSubject: Subject<Any> by lazy { PublishSubject.create<Any>() }
 
     private val posts: Single<List<PresentationPostItem>>
-        get() = interactor.fetchPosts.execute().map { it.map(mapper::map) }
-                .onErrorResumeNext { t: Throwable ->
-                    Single.just<List<PresentationPostItem>>(emptyList())
-                            .observeOn(uiScheduler)
-                            .map {
-                                logger.e(t, "Error while loading posts.")
-                                view.showError()
-                                it
-                            }
-                }
+        get() = interactor.fetchPosts.execute()
+                .map { it.map(mapper::map) }
 
     override fun onStart() {
         super.onStart()
 
         reloadPostsSubject
-                .flatMapSingle { posts }
+                .observeOn(uiScheduler)
+                .doOnNext { view.setLoading(true) }
+                .flatMapSingle {
+                    posts.onErrorResumeNext { t: Throwable ->
+                        Single.just<List<PresentationPostItem>>(emptyList())
+                                .observeOn(uiScheduler)
+                                .map {
+                                    handleError(t)
+                                    it
+                                }
+                    }
+                }
                 .observeOn(uiScheduler)
                 .filter { it.isNotEmpty() }
                 .subscribeBy(onNext = this::handleSuccess, onError = this::handleError)
@@ -59,15 +62,23 @@ class PostListPresenter @Inject constructor(private val view: PostListView,
                 .observeOn(uiScheduler)
                 .subscribe { navigator.openPostDetail(it.id) }
                 .disposeOnStop()
+
+        view.onRequestRefresh
+                .throttleFirst(PresenterConfig.INPUT_DEBOUNCE_DURATION, PresenterConfig.INPUT_DEBOUNCE_TIME)
+                .subscribe { reloadPostsSubject.onNext(Any()) }
+                .disposeOnStop()
     }
 
     private fun handleSuccess(items: List<PresentationPostItem>) {
+        view.setLoading(false)
         view.hideError()
         view.render(items)
     }
 
     private fun handleError(throwable: Throwable) {
         logger.e(throwable, "Error while loading posts.")
+
+        view.setLoading(false)
         view.showError()
     }
 }
