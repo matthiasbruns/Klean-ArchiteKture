@@ -7,7 +7,7 @@ import com.matthiasbruns.kleanarchitekture.presentation.PresenterConfig
 import com.matthiasbruns.kleanarchitekture.presentation.post.PostNavigator
 import com.matthiasbruns.kleanarchitekture.presentation.post.list.PostListView
 import com.matthiasbruns.kleanarchitekture.presentation.post.mapper.PresentationPostItemMapper
-import com.matthiasbruns.kleanarchitekture.presentation.post.model.PresentationPostItem
+import com.matthiasbruns.kleanarchitekture.presentation.post.model.PresentationPost
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.rxkotlin.subscribeBy
@@ -24,8 +24,8 @@ class PostListPresenter @Inject constructor(private val view: PostListView,
 
     private val reloadPostsSubject: Subject<Any> by lazy { PublishSubject.create<Any>() }
 
-    private val posts: Single<List<PresentationPostItem>>
-        get() = interactor.fetchPosts.execute()
+    private val posts: Single<List<PresentationPost>>
+        get() = interactor.fetchLatestPosts.execute()
                 .map { it.map(mapper::map) }
 
     override fun onStart() {
@@ -36,7 +36,7 @@ class PostListPresenter @Inject constructor(private val view: PostListView,
                 .doOnNext { view.setLoading(true) }
                 .flatMapSingle {
                     posts.onErrorResumeNext { t: Throwable ->
-                        Single.just<List<PresentationPostItem>>(emptyList())
+                        Single.just<List<PresentationPost>>(emptyList())
                                 .observeOn(uiScheduler)
                                 .map {
                                     handleError(t)
@@ -60,7 +60,7 @@ class PostListPresenter @Inject constructor(private val view: PostListView,
         view.onPostClick
                 .throttleFirst(PresenterConfig.INPUT_DEBOUNCE_DURATION, PresenterConfig.INPUT_DEBOUNCE_TIME)
                 .observeOn(uiScheduler)
-                .subscribe { navigator.openPostDetail(it.id) }
+                .subscribe { navigator.openPostDetail(it) }
                 .disposeOnStop()
 
         view.onRequestRefresh
@@ -69,7 +69,7 @@ class PostListPresenter @Inject constructor(private val view: PostListView,
                 .disposeOnStop()
     }
 
-    private fun handleSuccess(items: List<PresentationPostItem>) {
+    private fun handleSuccess(items: List<PresentationPost>) {
         view.setLoading(false)
         view.hideError()
         view.render(items)

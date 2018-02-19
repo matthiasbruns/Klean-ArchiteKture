@@ -1,6 +1,6 @@
 package com.matthiasbruns.kleanarchitekture.commons.data;
 
-interface Provider<out TO> {
+interface Provider<out RETURN> {
 
-    fun provide(): TO
+    fun provide(): RETURN
 }

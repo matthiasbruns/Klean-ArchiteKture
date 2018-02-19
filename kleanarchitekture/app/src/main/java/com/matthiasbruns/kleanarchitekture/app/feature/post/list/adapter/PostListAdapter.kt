@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.matthiasbruns.kleanarchitekture.app.R
 import com.matthiasbruns.kleanarchitekture.app.base.adapter.AutoUpdatableAdapter
-import com.matthiasbruns.kleanarchitekture.presentation.post.model.PresentationPostItem
+import com.matthiasbruns.kleanarchitekture.presentation.post.model.PresentationPost
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
@@ -16,12 +16,12 @@ class PostListAdapter : RecyclerView.Adapter<PostListViewHolder>(), AutoUpdatabl
     /**
      * https://antonioleiva.com/recyclerview-diffutil-kotlin
      */
-    var items: List<PresentationPostItem> by Delegates.observable(emptyList()) { _, oldList, newList ->
+    var items: List<PresentationPost> by Delegates.observable(emptyList()) { _, oldList, newList ->
         autoNotify(oldList, newList) { o, n -> o.id == n.id }
     }
 
-    private val _onItemClick: Subject<PresentationPostItem> by lazy { PublishSubject.create<PresentationPostItem>() }
-    val onItemClick: Observable<PresentationPostItem>
+    private val _onItemClick: Subject<PresentationPost> by lazy { PublishSubject.create<PresentationPost>() }
+    val onItemClick: Observable<PresentationPost>
         get() = _onItemClick
 
     override fun getItemCount(): Int = items.size

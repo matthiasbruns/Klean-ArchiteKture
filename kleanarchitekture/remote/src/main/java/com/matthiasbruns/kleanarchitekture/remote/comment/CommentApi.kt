@@ -12,5 +12,5 @@ interface CommentApi {
     fun fetch(): Single<Result<List<RemoteComment>>>
 
     @GET("comments")
-    fun fetch(@Query("postId") postId: String): Single<Result<List<RemoteComment>>>
+    fun fetch(@Query("postId") postId: Int): Single<Result<List<RemoteComment>>>
 }

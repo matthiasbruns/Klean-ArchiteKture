@@ -8,17 +8,16 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/postTitle"
+        android:id="@+id/postCommentAuthor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        tools:text="Lorem ipsum dolor sit amet" />
+        tools:text="Traxdata" />
 
     <TextView
-        android:id="@+id/postBody"
+        android:id="@+id/postCommentBody"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLines="3"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         tools:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum." />
 </LinearLayout>

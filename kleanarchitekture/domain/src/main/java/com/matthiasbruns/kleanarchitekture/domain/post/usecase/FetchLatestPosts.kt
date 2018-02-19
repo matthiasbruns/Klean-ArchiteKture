@@ -1,17 +1,15 @@
 package com.matthiasbruns.kleanarchitekture.domain.post.usecase
 
-import com.matthiasbruns.kleanarchitekture.domain.UseCase
+import com.matthiasbruns.kleanarchitekture.domain.NoArgUseCase
 import com.matthiasbruns.kleanarchitekture.domain.post.PostRepository
 import com.matthiasbruns.kleanarchitekture.domain.post.model.Post
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class FetchLatestPosts @Inject constructor(private val repository: PostRepository,
-                                           private val sortPortByIdDesc: SortPortByIdDesc) : UseCase<Int, Single<List<Post>>> {
+                                           private val sortPortByIdDesc: SortPortByIdDesc) : NoArgUseCase<Single<List<Post>>> {
 
-    /**
-     * @param param the amount of posts to be fetched
-     */
-    override fun execute(param: Int): Single<List<Post>> = repository.fetch(param)
+    override fun execute(): Single<List<Post>> = repository.fetch()
             .flatMap { sortPortByIdDesc.execute(it) }
 }

@@ -1,15 +1,15 @@
 package com.matthiasbruns.kleanarchitekture.presentation.post.list
 
-import com.matthiasbruns.kleanarchitekture.presentation.post.model.PresentationPostItem
+import com.matthiasbruns.kleanarchitekture.presentation.post.model.PresentationPost
 import io.reactivex.Observable
 
 interface PostListView {
 
-    val onPostClick: Observable<PresentationPostItem>
+    val onPostClick: Observable<PresentationPost>
 
     val onRequestRefresh: Observable<Any>
 
-    fun render(items: List<PresentationPostItem>)
+    fun render(items: List<PresentationPost>)
 
     fun showError()
 

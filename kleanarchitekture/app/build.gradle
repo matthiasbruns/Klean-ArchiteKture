@@ -26,6 +26,10 @@ android {
     }
 }
 
+androidExtensions {
+    experimental = true
+}
+
 kapt {
     javacOptions {
         // Increase the max count of errors from annotation processors.

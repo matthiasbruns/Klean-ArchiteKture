@@ -1,8 +1,8 @@
 package com.matthiasbruns.kleanarchitekture.app.dagger
 
 import com.matthiasbruns.kleanarchitekture.app.KleanApp
-import com.matthiasbruns.kleanarchitekture.app.feature.post.PostComponent
-import com.matthiasbruns.kleanarchitekture.app.feature.post.PostModule
+import com.matthiasbruns.kleanarchitekture.app.conductor.ConductorComponent
+import com.matthiasbruns.kleanarchitekture.app.conductor.ConductorModule
 import com.matthiasbruns.kleanarchitekture.app.logging.LoggingModule
 import com.matthiasbruns.kleanarchitekture.app.rx.RxModule
 import com.matthiasbruns.kleanarchitekture.commons.Logger
@@ -22,9 +22,9 @@ import javax.inject.Singleton
 )
 interface AppComponent {
 
-    fun inject(application: KleanApp)
+    fun plus(module: ConductorModule): ConductorComponent
 
-    fun plus(module: PostModule): PostComponent
+    fun inject(application: KleanApp)
 
     fun uiScheduler(): Scheduler
 

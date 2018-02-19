@@ -1,6 +1,8 @@
 package com.matthiasbruns.kleanarchitekture.presentation.post
 
+import com.matthiasbruns.kleanarchitekture.presentation.post.model.PresentationPost
+
 interface PostNavigator {
 
-    fun openPostDetail(postId: Int)
+    fun openPostDetail(post: PresentationPost)
 }

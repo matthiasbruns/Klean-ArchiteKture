@@ -7,13 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.matthiasbruns.kleanarchitekture.app.KleanApp
+import com.matthiasbruns.kleanarchitekture.app.MainActivity
 import com.matthiasbruns.kleanarchitekture.app.R
 import com.matthiasbruns.kleanarchitekture.app.base.controller.PresenterController
 import com.matthiasbruns.kleanarchitekture.app.feature.post.list.adapter.PostListAdapter
 import com.matthiasbruns.kleanarchitekture.presentation.post.list.PostListView
 import com.matthiasbruns.kleanarchitekture.presentation.post.list.presenter.PostListPresenter
-import com.matthiasbruns.kleanarchitekture.presentation.post.model.PresentationPostItem
+import com.matthiasbruns.kleanarchitekture.presentation.post.model.PresentationPost
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
@@ -37,7 +37,7 @@ class PostListController : PresenterController<PostListPresenter>(), PostListVie
 
     //region PostListView member implementations
 
-    override val onPostClick: Observable<PresentationPostItem>
+    override val onPostClick: Observable<PresentationPost>
         get() = adapter.onItemClick
 
     override val onRequestRefresh: Subject<Any> by lazy { PublishSubject.create<Any>() }
@@ -45,7 +45,7 @@ class PostListController : PresenterController<PostListPresenter>(), PostListVie
     //endregion
 
     override fun injectDependencies(context: Context) {
-        KleanApp.instance(context)
+        MainActivity.instance(context)
                 ?.postComponent
                 ?.plus(PostListModule(this))
                 ?.inject(this)
@@ -68,7 +68,7 @@ class PostListController : PresenterController<PostListPresenter>(), PostListVie
 
     //region View method implementations
 
-    override fun render(items: List<PresentationPostItem>) {
+    override fun render(items: List<PresentationPost>) {
         adapter.items = items
     }
 

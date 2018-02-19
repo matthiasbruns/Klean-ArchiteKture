@@ -1,11 +1,26 @@
 package com.matthiasbruns.kleanarchitekture.app.feature.post
 
+import com.bluelinelabs.conductor.ControllerChangeHandler
+import com.bluelinelabs.conductor.Router
+import com.bluelinelabs.conductor.RouterTransaction
+import com.matthiasbruns.kleanarchitekture.app.feature.post.detail.PostDetailController
+import com.matthiasbruns.kleanarchitekture.app.feature.post.mapper.ParcelablePresentationPostItemMapper
 import com.matthiasbruns.kleanarchitekture.presentation.post.PostNavigator
+import com.matthiasbruns.kleanarchitekture.presentation.post.model.PresentationPost
 import javax.inject.Inject
 
-class PostNavigatorImpl @Inject constructor() : PostNavigator {
+class PostNavigatorImpl @Inject constructor(private val router: Router,
+                                            private val parcelableMapper: ParcelablePresentationPostItemMapper,
+                                            private val changeHandler: ControllerChangeHandler) : PostNavigator {
 
-    override fun openPostDetail(postId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun openPostDetail(post: PresentationPost) {
+        val detailController = PostDetailController.create(parcelableMapper.mapTo(post))
+
+        val transaction = RouterTransaction.with(detailController)
+        transaction
+                .pushChangeHandler(changeHandler)
+                .popChangeHandler(changeHandler)
+
+        router.pushController(transaction)
     }
 }

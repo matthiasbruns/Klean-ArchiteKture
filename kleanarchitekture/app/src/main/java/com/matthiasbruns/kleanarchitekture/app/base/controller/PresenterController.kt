@@ -16,7 +16,7 @@ abstract class PresenterController<P : Presenter> : BaseController, PresenterHol
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         retainViewMode = RetainViewMode.RETAIN_DETACH
-        applicationContext?.apply { injectDependencies(this) }
+        activity?.apply { injectDependencies(this) }
         presenter.onCreate()
         return inflateView(inflater, container)
     }
