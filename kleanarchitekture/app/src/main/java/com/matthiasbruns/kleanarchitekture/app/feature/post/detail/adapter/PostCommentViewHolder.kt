@@ -11,6 +11,8 @@ class PostCommentViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
         with(itemView) {
             postCommentAuthor.text = comment.name
             postCommentBody.text = comment.body
+//            postCommentEmail.text = comment.email
+            postCommentEmail.text = comment.maskedEmail
         }
     }
 }

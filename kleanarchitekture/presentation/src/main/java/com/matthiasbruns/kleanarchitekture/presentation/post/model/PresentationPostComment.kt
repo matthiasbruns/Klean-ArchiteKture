@@ -4,4 +4,5 @@ data class PresentationPostComment(val id: Int,
                                    val postId: Int,
                                    val name: String,
                                    val email: String,
-                                   val body: String)
+                                   val body: String,
+                                   val maskedEmail: String)

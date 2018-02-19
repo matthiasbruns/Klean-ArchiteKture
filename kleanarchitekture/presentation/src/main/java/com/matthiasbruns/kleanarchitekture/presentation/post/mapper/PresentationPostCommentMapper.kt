@@ -13,7 +13,11 @@ class PresentationPostCommentMapper @Inject constructor() : Mapper<Comment, Pres
                 postId = postId,
                 name = name,
                 body = body,
-                email = email
+                email = email,
+                maskedEmail = when (email.length > 4) {
+                    true -> email.replaceRange(2, email.length - 2, "*****@*****")
+                    false -> email
+                }
         )
     }
 }
