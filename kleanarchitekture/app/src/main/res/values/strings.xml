@@ -3,4 +3,15 @@
 
     <!--POSTS-->
     <string name="post_comments_title">Comments</string>
+
+    <!--USER-->
+    <string name="user_name_label">Name</string>
+    <string name="user_email_label">E-Mail</string>
+    <string name="user_phone_label">Phone</string>
+    <string name="user_website_label">Website</string>
+    <string name="user_address_label">Address</string>
+    <string name="user_company_label">Company</string>
+    <string name="user_format_name">%1$s (%2$s)</string>
+    <string name="user_address_format_name">%1$s\n%2$s\n%3$s\n%4$s</string>
+    <string name="user_company_format_name">%1$s\n%2$s\n%3$s</string>
 </resources>

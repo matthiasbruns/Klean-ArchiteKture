@@ -5,4 +5,6 @@ import com.matthiasbruns.kleanarchitekture.presentation.post.model.PresentationP
 interface PostNavigator {
 
     fun openPostDetail(post: PresentationPost)
+
+    fun openPostAuthor(post: PresentationPost)
 }

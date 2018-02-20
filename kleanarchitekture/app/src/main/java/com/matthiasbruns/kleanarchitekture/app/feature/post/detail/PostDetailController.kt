@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.jakewharton.rxbinding2.view.RxView
 import com.matthiasbruns.kleanarchitekture.app.MainActivity
 import com.matthiasbruns.kleanarchitekture.app.R
 import com.matthiasbruns.kleanarchitekture.app.base.controller.PresenterController
@@ -17,6 +19,7 @@ import com.matthiasbruns.kleanarchitekture.presentation.post.detail.PostDetailVi
 import com.matthiasbruns.kleanarchitekture.presentation.post.detail.presenter.PostDetailPresenter
 import com.matthiasbruns.kleanarchitekture.presentation.post.model.PresentationPost
 import com.matthiasbruns.kleanarchitekture.presentation.post.model.PresentationPostComment
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.controller_post_detail.view.*
 import javax.inject.Inject
 
@@ -49,6 +52,9 @@ class PostDetailController(bundle: Bundle) : PresenterController<PostDetailPrese
 
     //region PostDetailView method implementations
 
+    override val onAuthorClick: Observable<Any>
+        get() = RxView.clicks(view!!.postUserId)
+
     override val post: PresentationPost by lazy { mapper.mapFrom(args.getParcelable(EXTRA_POST)) }
 
     //endregion
@@ -79,11 +85,22 @@ class PostDetailController(bundle: Bundle) : PresenterController<PostDetailPrese
         view?.apply {
             postTitle.text = post.title
             postBody.text = post.body
+            postUserId.text = post.formattedUserId
         }
     }
 
     override fun setComments(comments: List<PresentationPostComment>) {
         adapter.items = comments
+    }
+
+    override fun hideError() {
+
+    }
+
+    override fun showError(throwable: Throwable) {
+        activity?.let { context ->
+            Toast.makeText(context, throwable.message, Toast.LENGTH_LONG).show()
+        }
     }
 
     //endregion

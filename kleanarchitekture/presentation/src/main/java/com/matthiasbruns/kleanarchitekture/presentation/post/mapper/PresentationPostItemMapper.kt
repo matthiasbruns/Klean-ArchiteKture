@@ -11,6 +11,7 @@ class PresentationPostItemMapper @Inject constructor() : Mapper<Post, Presentati
         PresentationPost(id = id,
                 userId = userId,
                 title = title,
-                body = body)
+                body = body,
+                formattedUserId = "User: $userId") // cheap solution
     }
 }

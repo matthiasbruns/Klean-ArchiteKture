@@ -4,6 +4,7 @@ import com.matthiasbruns.kleanarchitekture.app.KleanApp
 import com.matthiasbruns.kleanarchitekture.app.conductor.ConductorComponent
 import com.matthiasbruns.kleanarchitekture.app.conductor.ConductorModule
 import com.matthiasbruns.kleanarchitekture.app.logging.LoggingModule
+import com.matthiasbruns.kleanarchitekture.app.remote.RemoteModule
 import com.matthiasbruns.kleanarchitekture.app.rx.RxModule
 import com.matthiasbruns.kleanarchitekture.commons.Logger
 import com.matthiasbruns.kleanarchitekture.remote.ApiClient
@@ -17,7 +18,8 @@ import javax.inject.Singleton
             AppModule::class,
             RxModule::class,
             ApiModule::class,
-            LoggingModule::class
+            LoggingModule::class,
+            RemoteModule::class
         ]
 )
 interface AppComponent {

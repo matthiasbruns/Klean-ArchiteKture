@@ -6,5 +6,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 class ParcelablePresentationPost(val id: Int,
                                  val userId: Int,
+                                 val formattedUserId: String,
                                  val title: String,
                                  val body: String) : Parcelable

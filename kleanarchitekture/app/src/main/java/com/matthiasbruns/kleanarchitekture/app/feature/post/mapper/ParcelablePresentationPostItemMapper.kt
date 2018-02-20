@@ -11,13 +11,15 @@ class ParcelablePresentationPostItemMapper @Inject constructor() : BiDirectional
         ParcelablePresentationPost(id = id,
                 userId = userId,
                 title = title,
-                body = body)
+                body = body,
+                formattedUserId = formattedUserId)
     }
 
     override fun mapFrom(from: ParcelablePresentationPost): PresentationPost = with(from) {
         PresentationPost(id = id,
                 userId = userId,
                 title = title,
-                body = body)
+                body = body,
+                formattedUserId = formattedUserId)
     }
 }

@@ -13,6 +13,8 @@ import com.matthiasbruns.kleanarchitekture.app.conductor.RouterProvider
 import com.matthiasbruns.kleanarchitekture.app.feature.post.PostComponent
 import com.matthiasbruns.kleanarchitekture.app.feature.post.PostModule
 import com.matthiasbruns.kleanarchitekture.app.feature.post.list.PostListController
+import com.matthiasbruns.kleanarchitekture.app.feature.user.UserComponent
+import com.matthiasbruns.kleanarchitekture.app.feature.user.UserModule
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), ActionBarProvider, RouterProvider {
@@ -22,9 +24,15 @@ class MainActivity : AppCompatActivity(), ActionBarProvider, RouterProvider {
         fun instance(context: Context): MainActivity? = context  as? MainActivity
     }
 
+    //region Dagger
+
     private lateinit var component: ConductorComponent
 
     val postComponent: PostComponent by lazy { component.plus(PostModule()) }
+
+    val userComponent: UserComponent by lazy { component.plus(UserModule()) }
+
+    //endregion
 
     private lateinit var router: Router
 

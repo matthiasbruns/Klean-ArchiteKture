@@ -41,13 +41,6 @@ class PostModule {
     @Provides
     fun provideRepository(repository: DataPostRepository): PostRepository = repository
 
-    @PostScope
-    @Provides
-    fun provideRemote(remote: PostRemoteImpl): PostRemote = remote
-
-    @PostScope
-    @Provides
-    fun provideApi(client: ApiClient): PostApi = client.post
 
     @PostScope
     @Provides
@@ -56,12 +49,4 @@ class PostModule {
     @PostScope
     @Provides
     fun provideCommentRepository(repository: DataCommentRepository): CommentRepository = repository
-
-    @PostScope
-    @Provides
-    fun provideCommentRemote(remote: CommentRemoteImpl): CommentRemote = remote
-
-    @PostScope
-    @Provides
-    fun provideCommentApi(client: ApiClient): CommentApi = client.comment
 }

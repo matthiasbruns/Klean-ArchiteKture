@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textStyle="bold"
         tools:text="Traxdata" />
 
     <TextView
@@ -19,7 +20,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textStyle="italic"
         tools:text="info@something.com" />
+
     <TextView
         android:id="@+id/postCommentBody"
         android:layout_width="match_parent"
