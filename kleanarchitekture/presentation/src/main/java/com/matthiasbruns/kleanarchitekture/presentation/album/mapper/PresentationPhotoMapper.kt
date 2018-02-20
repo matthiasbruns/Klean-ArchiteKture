@@ -1,7 +1,7 @@
 package com.matthiasbruns.kleanarchitekture.presentation.album.mapper
 
 import com.matthiasbruns.kleanarchitekture.commons.data.Mapper
-import com.matthiasbruns.kleanarchitekture.domain.album.model.Photo
+import com.matthiasbruns.kleanarchitekture.domain.photo.model.Photo
 import com.matthiasbruns.kleanarchitekture.presentation.album.model.PresentationPhoto
 import javax.inject.Inject
 

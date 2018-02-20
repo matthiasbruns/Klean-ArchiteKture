@@ -3,7 +3,7 @@ package com.matthiasbruns.kleanarchitekture.data.album.mapper
 import com.matthiasbruns.kleanarchitekture.commons.data.MapperWithArgs
 import com.matthiasbruns.kleanarchitekture.data.album.model.AlbumEntry
 import com.matthiasbruns.kleanarchitekture.domain.album.model.Album
-import com.matthiasbruns.kleanarchitekture.domain.album.model.Photo
+import com.matthiasbruns.kleanarchitekture.domain.photo.model.Photo
 import javax.inject.Inject
 
 class AlbumEntryMapper @Inject constructor() : MapperWithArgs<AlbumEntry, Album, List<Photo>> {

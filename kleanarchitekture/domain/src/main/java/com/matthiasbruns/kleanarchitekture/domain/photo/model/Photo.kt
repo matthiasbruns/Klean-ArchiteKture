@@ -1,4 +1,4 @@
-package com.matthiasbruns.kleanarchitekture.domain.album.model
+package com.matthiasbruns.kleanarchitekture.domain.photo.model
 
 data class Photo(val id: Int,
                  val albumId: Int,

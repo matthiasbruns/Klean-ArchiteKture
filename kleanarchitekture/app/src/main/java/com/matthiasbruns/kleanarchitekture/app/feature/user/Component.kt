@@ -4,8 +4,10 @@ import com.matthiasbruns.kleanarchitekture.app.feature.user.detail.UserDetailCom
 import com.matthiasbruns.kleanarchitekture.app.feature.user.detail.UserDetailModule
 import com.matthiasbruns.kleanarchitekture.app.feature.user.formatter.PresentationUserFormatter
 import com.matthiasbruns.kleanarchitekture.data.album.DataAlbumRepository
+import com.matthiasbruns.kleanarchitekture.data.photo.DataPhotoRepository
 import com.matthiasbruns.kleanarchitekture.data.user.DataUserRepository
 import com.matthiasbruns.kleanarchitekture.domain.album.AlbumRepository
+import com.matthiasbruns.kleanarchitekture.domain.photo.PhotoRepository
 import com.matthiasbruns.kleanarchitekture.domain.user.UserRepository
 import com.matthiasbruns.kleanarchitekture.presentation.user.mapper.PresentationAddressValueFormatter
 import com.matthiasbruns.kleanarchitekture.presentation.user.mapper.PresentationCompanyValueFormatter
@@ -49,6 +51,10 @@ class UserModule {
     @UserScope
     @Provides
     fun provideAlbumRepository(repository: DataAlbumRepository): AlbumRepository = repository
+
+    @UserScope
+    @Provides
+    fun providePhotoRepository(repository: DataPhotoRepository): PhotoRepository = repository
 
 //    @Singleton
 //    @Provides

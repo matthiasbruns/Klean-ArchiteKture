@@ -2,18 +2,16 @@ package com.matthiasbruns.kleanarchitekture.data.album
 
 import com.matthiasbruns.kleanarchitekture.data.album.mapper.AlbumEntryMapper
 import com.matthiasbruns.kleanarchitekture.data.album.model.AlbumEntry
-import com.matthiasbruns.kleanarchitekture.data.photo.PhotoRemote
-import com.matthiasbruns.kleanarchitekture.data.photo.mapper.PhotoEntryMapper
 import com.matthiasbruns.kleanarchitekture.domain.album.AlbumRepository
 import com.matthiasbruns.kleanarchitekture.domain.album.model.Album
+import com.matthiasbruns.kleanarchitekture.domain.photo.PhotoRepository
 import io.reactivex.Maybe
 import io.reactivex.Single
 import javax.inject.Inject
 
 class DataAlbumRepository @Inject constructor(private val albumRemote: AlbumRemote,
                                               private val albumMapper: AlbumEntryMapper,
-                                              private val photoRemote: PhotoRemote,
-                                              private val photoMapper: PhotoEntryMapper) : AlbumRepository {
+                                              private val photoRepository: PhotoRepository) : AlbumRepository {
 
     override fun fetch(id: Int): Maybe<Album> =
             albumRemote.fetch(id)
@@ -46,8 +44,7 @@ class DataAlbumRepository @Inject constructor(private val albumRemote: AlbumRemo
             .toList()
 
     private fun fetchPhotos(album: AlbumEntry): Single<Album> =
-            photoRemote.fetchByAlbum(album.id)
-                    .map { it.map(photoMapper::map) }
+            photoRepository.fetchByAlbum(album.id)
                     .map { photos ->
                         albumMapper.map(album, photos)
                     }
