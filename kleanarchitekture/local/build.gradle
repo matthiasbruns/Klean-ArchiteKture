@@ -28,10 +28,13 @@ dependencies {
     implementation project(':commons')
     implementation project(':data')
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation libraries.androidSupportAppCompat
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    testImplementation testLibraries.expectKt
+    testImplementation testLibraries.junit
+    testImplementation testLibraries.kotlinTest
+    testImplementation testLibraries.mockitoKotlin
+    testImplementation testLibraries.robolectric
+    androidTestImplementation testLibraries.testRunner
+    androidTestImplementation testLibraries.espressoCore
 }

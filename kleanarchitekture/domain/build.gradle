@@ -3,6 +3,4 @@ apply plugin: 'kotlin'
 
 dependencies {
     implementation project(':commons')
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }

@@ -1,13 +1,10 @@
-apply plugin: 'java-library'
-apply plugin: 'kotlin'
+apply from: '../base-library-module.gradle'
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    api libraries.rxJava2
+    api libraries.rxKotlin
+    api libraries.javaxInject
+    api libraries.multiFunctions
 
-    api 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    api 'io.reactivex.rxjava2:rxjava:2.1.9'
-    api "io.reactivex.rxjava2:rxkotlin:2.2.0"
-
-    api "javax.inject:javax.inject:1"
-    api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    testImplementation testLibraries.kotlinTest
 }
