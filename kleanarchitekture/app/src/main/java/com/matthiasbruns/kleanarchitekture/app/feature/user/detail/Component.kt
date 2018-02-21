@@ -1,6 +1,8 @@
 package com.matthiasbruns.kleanarchitekture.app.feature.user.detail
 
 import com.matthiasbruns.kleanarchitekture.presentation.user.detail.UserDetailView
+import com.matthiasbruns.kleanarchitekture.presentation.user.detail.presenter.UserDetailPresenter
+import com.matthiasbruns.kleanarchitekture.presentation.user.detail.presenter.UserDetailPresenterImpl
 import dagger.Module
 import dagger.Provides
 import dagger.Subcomponent
@@ -24,4 +26,8 @@ class UserDetailModule(private val view: UserDetailView) {
     @UserDetailScope
     @Provides
     fun provideView(): UserDetailView = view
+
+    @UserDetailScope
+    @Provides
+    fun providePresenter(presenter: UserDetailPresenterImpl) : UserDetailPresenter = presenter
 }

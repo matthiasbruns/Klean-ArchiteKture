@@ -4,6 +4,7 @@ import com.matthiasbruns.kleanarchitekture.commons.Logger
 import com.matthiasbruns.kleanarchitekture.domain.album.AlbumInteractor
 import com.matthiasbruns.kleanarchitekture.domain.user.UserInteractor
 import com.matthiasbruns.kleanarchitekture.presentation.DisposablePresenter
+import com.matthiasbruns.kleanarchitekture.presentation.Presenter
 import com.matthiasbruns.kleanarchitekture.presentation.album.mapper.PresentationAlbumMapper
 import com.matthiasbruns.kleanarchitekture.presentation.album.model.PresentationAlbum
 import com.matthiasbruns.kleanarchitekture.presentation.user.detail.UserDetailView
@@ -14,13 +15,15 @@ import io.reactivex.Single
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
-class UserDetailPresenter @Inject constructor(private val view: UserDetailView,
-                                              private val uiScheduler: Scheduler,
-                                              private val userInteractor: UserInteractor,
-                                              private val albumInteractor: AlbumInteractor,
-                                              private val logger: Logger,
-                                              private val userMapper: PresentationUserMapper,
-                                              private val albumMapper: PresentationAlbumMapper) : DisposablePresenter() {
+interface UserDetailPresenter : Presenter
+
+class UserDetailPresenterImpl @Inject constructor(private val view: UserDetailView,
+                                                  private val uiScheduler: Scheduler,
+                                                  private val userInteractor: UserInteractor,
+                                                  private val albumInteractor: AlbumInteractor,
+                                                  private val logger: Logger,
+                                                  private val userMapper: PresentationUserMapper,
+                                                  private val albumMapper: PresentationAlbumMapper) : DisposablePresenter(), UserDetailPresenter {
 
     private val user: Single<PresentationUser>
         get() = userInteractor.fetchUserById.execute(view.userId)
@@ -33,7 +36,7 @@ class UserDetailPresenter @Inject constructor(private val view: UserDetailView,
                 .toSingle()
 
     override fun onStart() {
-        super.onStart()
+        super<DisposablePresenter>.onStart()
 
         user.observeOn(uiScheduler).subscribeBy(onSuccess = this::handleUserSuccess, onError = this::handleUserError)
         albums.observeOn(uiScheduler).subscribeBy(onSuccess = this::handleAlbumSuccess, onError = this::handleAlbumError)

@@ -3,6 +3,7 @@ package com.matthiasbruns.kleanarchitekture.presentation.post.list.presenter
 import com.matthiasbruns.kleanarchitekture.commons.Logger
 import com.matthiasbruns.kleanarchitekture.domain.post.PostInteractor
 import com.matthiasbruns.kleanarchitekture.presentation.DisposablePresenter
+import com.matthiasbruns.kleanarchitekture.presentation.Presenter
 import com.matthiasbruns.kleanarchitekture.presentation.PresenterConfig
 import com.matthiasbruns.kleanarchitekture.presentation.post.PostNavigator
 import com.matthiasbruns.kleanarchitekture.presentation.post.list.PostListView
@@ -15,12 +16,14 @@ import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 import javax.inject.Inject
 
-class PostListPresenter @Inject constructor(private val view: PostListView,
-                                            private val uiScheduler: Scheduler,
-                                            private val interactor: PostInteractor,
-                                            private val logger: Logger,
-                                            private val mapper: PresentationPostItemMapper,
-                                            private val navigator: PostNavigator) : DisposablePresenter() {
+interface PostListPresenter : Presenter
+
+class PostListPresenterImpl @Inject constructor(private val view: PostListView,
+                                                private val uiScheduler: Scheduler,
+                                                private val interactor: PostInteractor,
+                                                private val logger: Logger,
+                                                private val mapper: PresentationPostItemMapper,
+                                                private val navigator: PostNavigator) : DisposablePresenter(), PostListPresenter {
 
     private val reloadPostsSubject: Subject<Any> by lazy { PublishSubject.create<Any>() }
 
@@ -29,7 +32,7 @@ class PostListPresenter @Inject constructor(private val view: PostListView,
                 .map { it.map(mapper::map) }
 
     override fun onStart() {
-        super.onStart()
+        super<DisposablePresenter>.onStart()
 
         reloadPostsSubject
                 .observeOn(uiScheduler)

@@ -3,6 +3,7 @@ package com.matthiasbruns.kleanarchitekture.presentation.post.detail.presenter
 import com.matthiasbruns.kleanarchitekture.commons.Logger
 import com.matthiasbruns.kleanarchitekture.domain.post.PostInteractor
 import com.matthiasbruns.kleanarchitekture.presentation.DisposablePresenter
+import com.matthiasbruns.kleanarchitekture.presentation.Presenter
 import com.matthiasbruns.kleanarchitekture.presentation.PresenterConfig
 import com.matthiasbruns.kleanarchitekture.presentation.post.PostNavigator
 import com.matthiasbruns.kleanarchitekture.presentation.post.detail.PostDetailView
@@ -15,12 +16,16 @@ import io.reactivex.Single
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
-class PostDetailPresenter @Inject constructor(private val view: PostDetailView,
-                                              private val uiScheduler: Scheduler,
-                                              private val interactor: PostInteractor,
-                                              private val logger: Logger,
-                                              private val mapper: PresentationPostCommentMapper,
-                                              private val navigator: PostNavigator) : DisposablePresenter() {
+interface PostDetailPresenter : Presenter {
+
+}
+
+class PostDetailPresenterImpl @Inject constructor(private val view: PostDetailView,
+                                                  private val uiScheduler: Scheduler,
+                                                  private val interactor: PostInteractor,
+                                                  private val logger: Logger,
+                                                  private val mapper: PresentationPostCommentMapper,
+                                                  private val navigator: PostNavigator) : DisposablePresenter(), PostDetailPresenter {
 
     private val comments: Single<List<PresentationPostComment>>
         get() = interactor.fetchCommentsByPost.execute(view.post.id)
@@ -32,7 +37,7 @@ class PostDetailPresenter @Inject constructor(private val view: PostDetailView,
     }
 
     override fun onStart() {
-        super.onStart()
+        super<DisposablePresenter>.onStart()
 
         post.observeOn(uiScheduler)
                 .subscribeBy { view.setPost(it) }

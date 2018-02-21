@@ -1,6 +1,8 @@
 package com.matthiasbruns.kleanarchitekture.app.feature.post.list
 
 import com.matthiasbruns.kleanarchitekture.presentation.post.list.PostListView
+import com.matthiasbruns.kleanarchitekture.presentation.post.list.presenter.PostListPresenter
+import com.matthiasbruns.kleanarchitekture.presentation.post.list.presenter.PostListPresenterImpl
 import dagger.Module
 import dagger.Provides
 import dagger.Subcomponent
@@ -23,4 +25,8 @@ class PostListModule(private val view: PostListView) {
     @PostListScope
     @Provides
     fun provideView(): PostListView = view
+
+    @PostListScope
+    @Provides
+    fun providePresenter(presenter: PostListPresenterImpl): PostListPresenter = presenter
 }

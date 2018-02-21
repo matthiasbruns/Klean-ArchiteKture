@@ -7,4 +7,6 @@ dependencies {
     api libraries.multiFunctions
 
     testImplementation testLibraries.kotlinTest
+    testImplementation testLibraries.expectKt
+    testImplementation testLibraries.mockitoKotlin
 }

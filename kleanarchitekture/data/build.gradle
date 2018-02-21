@@ -4,4 +4,8 @@ apply plugin: 'kotlin'
 dependencies {
     implementation project(':commons')
     implementation project(':domain')
+
+    testImplementation testLibraries.kotlinTest
+    testImplementation testLibraries.expectKt
+    testImplementation testLibraries.mockitoKotlin
 }

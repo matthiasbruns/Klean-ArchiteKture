@@ -9,4 +9,8 @@ dependencies {
     implementation libraries.retrofit
     implementation libraries.retrofitAdapterRxJava2
     implementation libraries.retrofitConverterMoshi
+
+    testImplementation testLibraries.kotlinTest
+    testImplementation testLibraries.expectKt
+    testImplementation testLibraries.mockitoKotlin
 }
