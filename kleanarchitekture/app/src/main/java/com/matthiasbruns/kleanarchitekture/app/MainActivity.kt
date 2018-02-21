@@ -41,13 +41,14 @@ class MainActivity : AppCompatActivity(), ActionBarProvider, RouterProvider {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
 
+        setContentView(R.layout.activity_main)
         router = Conductor.attachRouter(this, controller_container, savedInstanceState)
         component = KleanApp.instance(this)
                 ?.component
                 ?.plus(ConductorModule(this)) ?: throw Error("Could not initiate dagger")
+
+        setSupportActionBar(toolbar)
 
         if (!router.hasRootController()) {
             router.setRoot(RouterTransaction.with(PostListController()))
